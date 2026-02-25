@@ -1,0 +1,20 @@
+###
+
+###
+POST  http://localhost:3000/posts
+Content-Type: application/json
+
+{
+  "title": "NestJS DTO Validation Guide",
+  "postType": "post",
+  "slug": "nestjs-dto-validation-guide-1",
+  "status": "published",
+  "content": "This post explains how to use class-validator and class-transformer in NestJS.",
+  "schema": "{\"@context\":\"https://schema.org\",\"@type\":\"BlogPosting\",\"headline\":\"NestJS DTO Validation Guide\"}",
+  "featuredImageUrl": "https://example.com/images/nestjs.png",
+  "publishOn": "2026-01-30T10:00:00.000Z",
+  "tags": ["nestjs", "backend", "validation"],
+  "metaOptions":{
+      "metaValue": "{\"sidebarEnabled\":true, \"showComments\":false}"
+       }
+}
