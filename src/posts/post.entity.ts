@@ -8,10 +8,15 @@ import {
   OneToMany,
   OneToOne,
   JoinColumn,
+  ManyToOne,
+  ManyToMany,
+  JoinTable,
 } from 'typeorm';
 import { PostTypes } from './enums/postTypes.enum';
 import { PostStatus } from './enums/postStatus.enum';
 import { MetaOption } from '../meta-options/meta-options.entity';
+import { User } from '../users/user.entity';
+import { Tag } from '../tags/tags.entity';
 // import { PostMetaOption } from './post-meta-option.entity';
 
 @Entity('posts')
@@ -71,12 +76,15 @@ export class Post {
   })
   publishOn?: Date;
 
-  @Column({
-    type: 'text',
-    array: true,
-    nullable: true,
-  })
-  tags?: string[];
+  @ManyToMany(
+    () => Tag,
+    //  , (tag) => tag.posts, {
+    //     cascade: true,
+    //     eager: true,
+    //   }\
+  )
+  @JoinTable()
+  tags?: Tag[];
 
   // // 🔗 Relationship with meta options
   // @OneToMany(() => PostMetaOption, (metaOption) => metaOption.post, {
@@ -84,9 +92,16 @@ export class Post {
   //   eager: false,
   // })
   // metaOptions?: PostMetaOption[];
-  @OneToOne(() => MetaOption, { cascade: true, eager: true })
-  @JoinColumn()
+  @OneToOne(() => MetaOption, (metaOption) => metaOption.post, {
+    cascade: true,
+    eager: true,
+  })
   metaOptions?: MetaOption;
+
+  @ManyToOne(() => User, (user) => user.posts, {
+    eager: true,
+  })
+  author: User;
 
   @CreateDateColumn()
   createdAt!: Date;

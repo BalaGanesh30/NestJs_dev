@@ -7,7 +7,7 @@ Content-Type: application/json
 {
   "title": "NestJS DTO Validation Guide",
   "postType": "post",
-  "slug": "nestjs-dto-validation-guide-1",
+  "slug": "nestjs-dto-validation-guide-5",
   "status": "published",
   "content": "This post explains how to use class-validator and class-transformer in NestJS.",
   "schema": "{\"@context\":\"https://schema.org\",\"@type\":\"BlogPosting\",\"headline\":\"NestJS DTO Validation Guide\"}",
@@ -16,5 +16,7 @@ Content-Type: application/json
   "tags": ["nestjs", "backend", "validation"],
   "metaOptions":{
       "metaValue": "{\"sidebarEnabled\":true, \"showComments\":false}"
-       }
+       },
+  "authorId": 1
+  
 }

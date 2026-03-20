@@ -1,5 +1,5 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
-import { IsInt, IsOptional } from 'class-validator';
+import { IsInt, IsNotEmpty, IsOptional } from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class GetUserParamsDto {
@@ -7,8 +7,8 @@ export class GetUserParamsDto {
     description: 'The ID of the user',
     example: 2324,
   })
-  @IsOptional()
+  @IsNotEmpty()
   @IsInt()
   @Type(() => Number)
-  id?: number;
+  id: number;
 }

@@ -2,6 +2,7 @@ import { Type } from 'class-transformer';
 import {
   IsArray,
   IsEnum,
+  IsInt,
   IsISO8601,
   IsJSON,
   IsNotEmpty,
@@ -83,15 +84,14 @@ export class CreatePostDto {
   publishOn?: string;
 
   @ApiPropertyOptional({
-    description: 'Tags associated with the post',
-    example: ['nestjs', 'decorators', 'typescript'],
-    type: [String],
+    description: 'Tags associated with the post ids',
+    example: [1, 2, 3],
+    type: [Number],
   })
   @IsOptional()
   @IsArray()
-  @IsString({ each: true })
-  @MinLength(3, { each: true })
-  tags?: string[];
+  @IsInt({ each: true })
+  tags?: number[];
 
   @ApiPropertyOptional({
     description: 'Meta options for the post',
@@ -112,4 +112,14 @@ export class CreatePostDto {
   @ValidateNested({ each: true })
   @Type(() => CreatePostMetaOptionsDto)
   metaOptions?: CreatePostMetaOptionsDto | null;
+
+  @IsInt()
+  @IsNotEmpty()
+  @ApiProperty({
+    type: 'integer',
+    required: true,
+    description: 'ID of the author creating the post',
+    example: 1,
+  })
+  authorId: number;
 }

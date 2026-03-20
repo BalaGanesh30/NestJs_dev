@@ -1,0 +1,17 @@
+###
+
+POST http://localhost:3000/tags
+Content-Type: application/json
+
+{
+  "name": "NestJS Fundamentals",
+  "slug": "nestjs-fundamentals",
+  "description": "Everything you need to know about NestJS core concepts",
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Thing",
+    "name": "NestJS Tag",
+    "description": "Tag for NestJS tutorials"
+  },
+  "featuredImageUrl": "https://images.example.com/nestjs-tag.jpg"
+}

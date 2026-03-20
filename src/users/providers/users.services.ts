@@ -43,8 +43,10 @@ export class UserService {
     return isAuth;
   }
 
-  getUserById(getUserParamsDto: GetUserParamsDto): number | undefined {
-    console.log(getUserParamsDto);
-    return getUserParamsDto?.id;
+  public async getUserById(getUserParamsDto: GetUserParamsDto) {
+    console.log(getUserParamsDto, 'this is from getUserById in user service');
+    const user = await this.userRepository.findOneBy(getUserParamsDto);
+    console.log(user, 'this is from getUserById in user service');
+    return user;
   }
 }

@@ -41,18 +41,52 @@ export class PostsService {
 
     // return await this.postRepository.save(post);
 
+    //find authenticated user
+    const author = await this.userService.getUserById({
+      id: createPostDto.authorId,
+    });
+
+    console.log(author, 'this is from the post service for author');
+
     const post = this.postRepository.create({
       ...createPostDto,
       metaOptions: createPostDto.metaOptions || undefined,
+      author: author ? author : undefined, // Associate the post with the authenticated user
     });
 
     return await this.postRepository.save(post);
   }
 
-  public findAllPosts(userId: string): string {
+  public async findAllPosts(userId: string) {
     console.log(userId);
     const user = this.userService.getUserById({ id: parseInt(userId) });
-    console.log(user);
-    return 'this is posts service' + `${user}`;
+    let posts = await this.postRepository.find({
+      relations: { metaOptions: true, author: true },
+    });
+    return posts;
+  }
+
+  public async deletePost(postId: number) {
+    console.log(postId, 'this is from the post service for Id');
+    //find the post by id
+    // let post = await this.postRepository.findOneBy({ id: postId });
+    // console.log(post, ' this is from the post services');
+    // //deleting the post
+    let data = await this.postRepository.delete({ id: postId });
+    // //delete the metaoptions associated with the post
+    // if (post && post.metaOptions) {
+    //   await this.metaOptionsRepository.delete({ id: post.metaOptions.id });
+    // }
+    // //confirmation
+    // let inverrsePost = await this.metaOptionsRepository.find({
+    //   where: { id: post?.metaOptions?.id },
+    //   relations: { post: true },
+    // });
+
+    return {
+      message: `Post with id ${postId} and its associated meta options have been deleted successfully.`,
+      data,
+    };
+    // return inverrsePost;
   }
 }

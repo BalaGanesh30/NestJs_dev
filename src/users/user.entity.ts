@@ -5,7 +5,9 @@ import {
   Index,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from 'typeorm';
+import { Post } from '../posts/post.entity';
 
 @Entity('users')
 export class User {
@@ -38,6 +40,12 @@ export class User {
     select: false, // 👈 VERY IMPORTANT (password won’t be returned by default)
   })
   password: string;
+
+  @OneToMany(
+    () => Post,
+    (post) => post.author, // Automatically save related posts when saving a user
+  )
+  posts: Post[];
 
   @CreateDateColumn()
   createdAt: Date;
