@@ -82,6 +82,7 @@ export class Post {
     //     cascade: true,
     //     eager: true,
     //   }\
+    (tags) => tags.post,
   )
   @JoinTable()
   tags?: Tag[];
@@ -93,8 +94,8 @@ export class Post {
   // })
   // metaOptions?: PostMetaOption[];
   @OneToOne(() => MetaOption, (metaOption) => metaOption.post, {
-    cascade: true,
-    eager: true,
+    cascade: true, // auto save meta options
+    eager: true, // auto load meta options with post when we fetch posts
   })
   metaOptions?: MetaOption;
 

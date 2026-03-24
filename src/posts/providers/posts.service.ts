@@ -5,12 +5,18 @@ import { Repository } from 'typeorm';
 import { Post } from '../post.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { MetaOption } from '../../meta-options/meta-options.entity';
+import { TagsService } from '../../tags/providers/tags.service';
+import { PatchPostDto } from '../dtos/patch-post.dto';
 
 @Injectable()
 export class PostsService {
   constructor(
     /** injecting the userService */
     private readonly userService: UserService,
+
+    /**injecting the tags services */
+    private readonly tagsService: TagsService,
+
     /**post inject */
     @InjectRepository(Post)
     private readonly postRepository: Repository<Post>,
@@ -46,12 +52,17 @@ export class PostsService {
       id: createPostDto.authorId,
     });
 
+    const tags = await this.tagsService.findMultipleTagsByIds(
+      createPostDto.tags || [],
+    );
+
     console.log(author, 'this is from the post service for author');
 
     const post = this.postRepository.create({
       ...createPostDto,
       metaOptions: createPostDto.metaOptions || undefined,
       author: author ? author : undefined, // Associate the post with the authenticated user
+      tags: tags || undefined, // Associate the post with the retrieved tags
     });
 
     return await this.postRepository.save(post);
@@ -61,7 +72,7 @@ export class PostsService {
     console.log(userId);
     const user = this.userService.getUserById({ id: parseInt(userId) });
     let posts = await this.postRepository.find({
-      relations: { metaOptions: true, author: true },
+      relations: { metaOptions: true, author: true, tags: true },
     });
     return posts;
   }
@@ -89,4 +100,39 @@ export class PostsService {
     };
     // return inverrsePost;
   }
+
+  public async updatePost(patchPostDto: PatchPostDto) {
+    // let post = await this.postRepository.findOne({
+    //   where: { id: postId },
+    //   relations: { metaOptions: true, tags: true },
+    // });
+    let tags = await this.tagsService.findMultipleTagsByIds(
+      patchPostDto.tags || [],
+    );
+
+    let post = await this.postRepository.findOne({
+      where: { id: patchPostDto.id },
+      relations: { metaOptions: true, tags: true },
+    });
+
+    if (!post) {
+      return { message: `Post with id ${patchPostDto.id} not found.` };
+    }
+
+    // Update post properties
+    post.title = patchPostDto.title ?? post.title;
+    post.content = patchPostDto.content ?? post.content;
+    post.status = patchPostDto.status ?? post.status;
+    post.postType = patchPostDto.postType ?? post.postType;
+    post.schema = patchPostDto.schema ?? post.schema;
+    post.slug = patchPostDto.slug ?? post.slug;
+    post.featuredImageUrl =
+      patchPostDto.featuredImageUrl ?? post.featuredImageUrl;
+    post.publishOn = patchPostDto.publishOn
+      ? new Date(patchPostDto.publishOn)
+      : post.publishOn;
+
+    post.tags = tags;
+    return await this.postRepository.save(post);
+   }
 }

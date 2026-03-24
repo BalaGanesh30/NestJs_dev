@@ -48,12 +48,12 @@ export class PostsController {
   @Patch()
   public updatePost(@Body() updatePostDto: PatchPostDto) {
     console.log(updatePostDto);
-    return 'this is update post endpoint';
+    return this.postsService.updatePost(updatePostDto);
   }
 
   @Delete('/delete')
   public deletePost(@Query('id', ParseIntPipe) id: number) {
-    console.log(id, "this is frpm ctrl posts")
+    console.log(id, 'this is frpm ctrl posts');
     return this.postsService.deletePost(id);
   }
 }

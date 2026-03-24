@@ -5,22 +5,26 @@ PATCH http://localhost:3000/posts
 Content-Type: application/json
 
 {
-  "id" : 101,
-  "title": "NestJS DTO Validation Guide",
+  "id" : 7,
+  "title": "Understanding NestJS Decorators: A Comprehensive Guide",
   "postType": "post",
-  "slug": "nestjs-dto-validation-guide",
+  "slug": "understanding-nestjs-decorators",
   "status": "published",
-  "content": "This post explains how to use class-validator and class-transformer in NestJS.",
-  "schema": "{\"@context\":\"https://schema.org\",\"@type\":\"BlogPosting\",\"headline\":\"NestJS DTO Validation Guide\"}",
-  "featuredImageUrl": "https://example.com/images/nestjs.png",
-  "publishOn": "2026-01-30T10:00:00.000Z",
-  "tags": ["nestjs", "backend", "validation"],
-  "metaOptions": [
-    {
-      "key": "readingTime",
-      "value" : 10
-    }
-  ]
+  "content": "NestJS decorators are a powerful feature that allows you to add metadata to classes, methods, and properties. They are extensively used throughout the framework for dependency injection, routing, and validation.",
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Understanding NestJS Decorators",
+    "author": "John Doe",
+    "datePublished": "2023-12-15"
+  },
+  "featuredImageUrl": "https://example.com/images/nestjs-decorators.jpg",
+  "publishOn": "2023-12-31T10:00:00Z",
+  "tags": [1, 2, 3, 5],
+  "metaOptions": {
+    "metaValue": "{\"sidebarEnabled\": true, \"commentsEnabled\": false, \"readingTime\": 8}"
+  },
+  "authorId": 1
 }
 
 
