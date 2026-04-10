@@ -4,8 +4,8 @@ POST http://localhost:3000/tags
 Content-Type: application/json
 
 {
-  "name": "typeScript",
-  "slug": "nestjs-fundamentals-javascript-tyep",
+  "name": "java",
+  "slug": "nestjs-fundamentals-java",
   "description": "Everything you need to know about NestJS core concepts",
   "schema": {
     "@context": "https://schema.org",

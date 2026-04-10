@@ -23,4 +23,7 @@ export class TagsController {
   public async deleteTag(@Query('id', ParseIntPipe) id: number) {
     return this.tagsService.deleteTag(id);
   }
+    @Delete('/soft-delete')
+  public async softDeleteTag(@Query('id', ParseIntPipe) id: number) {
+    return this.tagsService.softDeleteTag(id);}
 }

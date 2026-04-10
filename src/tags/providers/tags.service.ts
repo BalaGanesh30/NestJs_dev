@@ -32,4 +32,15 @@ export class TagsService {
       tags,
     };
   }
+
+  public async softDeleteTag(id: number) {
+    const tag = await this.tagsRepository.softDelete(id);
+    if (!tag) {
+      throw new Error(`Tag with id ${id} not found`);
+    }
+    return {
+      message: `Tag with id ${id} has been soft deleted successfully`,
+      tag,
+    };
+  }
 }

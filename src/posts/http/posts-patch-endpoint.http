@@ -5,10 +5,10 @@ PATCH http://localhost:3000/posts
 Content-Type: application/json
 
 {
-  "id" : 7,
+  "id" : 9,
   "title": "Understanding NestJS Decorators: A Comprehensive Guide",
   "postType": "post",
-  "slug": "understanding-nestjs-decorators",
+  "slug": "understanding-nestjs-decorators-new",
   "status": "published",
   "content": "NestJS decorators are a powerful feature that allows you to add metadata to classes, methods, and properties. They are extensively used throughout the framework for dependency injection, routing, and validation.",
   "schema": {
@@ -20,7 +20,7 @@ Content-Type: application/json
   },
   "featuredImageUrl": "https://example.com/images/nestjs-decorators.jpg",
   "publishOn": "2023-12-31T10:00:00Z",
-  "tags": [1, 2, 3, 5],
+  "tags": [5,8,9],
   "metaOptions": {
     "metaValue": "{\"sidebarEnabled\": true, \"commentsEnabled\": false, \"readingTime\": 8}"
   },
